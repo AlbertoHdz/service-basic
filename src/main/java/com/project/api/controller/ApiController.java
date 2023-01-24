@@ -44,19 +44,25 @@ public class ApiController {
         int total = rows.size();
         items.put("rows", total);
         items.put("data", rows);
+        System.out.println("==== datos =====");
+        System.out.println(rows);
         return JSONValue.toJSONString(items);
     }
     
     @PostMapping(value = "/item", produces = "application/json; charset=utf-8")
     public String saveItems(@RequestBody Item nv){
         //System.out.println(nv.toString());
-        Map items = new HashMap();
+        Map item = new HashMap();
         service.agregaItem(nv);
-        items.put("status", "ok");
-        items.put("nuevo", nv.toString());
-        items.put("msg", "agregado con exito");
+        item.put("status", "ok");
+        item.put("nuevo", nv.toString());
+        item.put("msg", "agregado con exito");
         System.out.println("Todos los objetos: ");
-        System.out.println(service.getItems());
+        Map items = new HashMap();
+        items.put("data", service.getItems());
+        items.put("inserted", item);
+        System.out.println(items);
+        
         return JSONValue.toJSONString(items);
     }
 }
