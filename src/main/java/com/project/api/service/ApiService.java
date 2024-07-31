@@ -29,6 +29,10 @@ public class ApiService {
         return lista;
     }
     
+    public Item getItem(int idBuscar){
+        return (Item) lista.get(idBuscar);
+    }
+    
     public void agregaItem(Item nv){
         lista.add(nv.toString());
     }

@@ -14,6 +14,7 @@ import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,18 @@ public class ApiController {
         Map items = new HashMap();
         List rows = service.getItems();
         int total = rows.size();
+        items.put("rows", total);
+        items.put("data", rows);
+        System.out.println("==== datos =====");
+        System.out.println(rows);
+        return JSONValue.toJSONString(items);
+    }
+    
+    @GetMapping(value = "/item/{idItem}", produces = "application/json; charset=utf-8")
+    public String getitem(@PathVariable Integer idItem){
+        Map items = new HashMap();
+        Item rows = service.getItem(idItem);
+        int total = 1;
         items.put("rows", total);
         items.put("data", rows);
         System.out.println("==== datos =====");
